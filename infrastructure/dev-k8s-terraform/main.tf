@@ -73,11 +73,13 @@ resource "aws_security_group" "petclinic-kube-worker-sg" {
   tags = {
     Name = "kube-worker-secgroup"
   }
+
 }
 
 resource "aws_security_group" "petclinic-kube-master-sg" {
   name = var.sec-gr-k8s-master
   vpc_id = data.aws_vpc.name.id
+
 
   ingress {
     protocol = "tcp"
