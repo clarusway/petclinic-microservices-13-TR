@@ -118,6 +118,7 @@
       mode: 0777
 
   - name: Run helm script
+    become: true
     script: /home/ubuntu/get_helm.sh
 
 - hosts: role_worker
