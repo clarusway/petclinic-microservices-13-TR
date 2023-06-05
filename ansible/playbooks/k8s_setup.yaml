@@ -80,13 +80,13 @@
     shell: |
       kubeadm init --pod-network-cidr=10.244.0.0/16 --ignore-preflight-errors=All
     
-  # - name: Setup kubeconfig for ubuntu user
-  #   become: true
-  #   command: "{{ item }}"
-  #   with_items:
-  #    - mkdir -p /home/ubuntu/.kube
-  #    - cp -i /etc/kubernetes/admin.conf /home/ubuntu/.kube/config
-  #    - chown ubuntu:ubuntu /home/ubuntu/.kube/config
+  - name: Setup kubeconfig for ubuntu user
+    become: true
+    command: "{{ item }}"
+    with_items:
+     - mkdir -p /home/ubuntu/.kube
+     - cp -i /etc/kubernetes/admin.conf /home/ubuntu/.kube/config
+     - chown ubuntu:ubuntu /home/ubuntu/.kube/config
 
   - name: Install flannel pod network
     remote_user: ubuntu
@@ -104,21 +104,21 @@
       name: "kube_master"
       worker_join: "{{ join_command_for_workers.stdout.strip() }}"
 
-  # - name: install Helm 
-  #   shell: |
-  #     cd /home/ubuntu
-  #     curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
-  #     chmod 777 get_helm.sh
-  #     ./get_helm.sh
+  - name: install Helm 
+    shell: |
+      cd /home/ubuntu
+      curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+      chmod 777 get_helm.sh
+      ./get_helm.sh
 
-  - name: download helm
-    get_url:
-      url:  https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-      dest: /home/ubuntu/get_helm.sh
-      mode: 0700
+  # - name: download helm
+  #   get_url:
+  #     url:  https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+  #     dest: /home/ubuntu/get_helm.sh
+  #     mode: 0700
 
-  - name: Run helm script
-    command: sh /home/ubuntu/get_helm.sh
+  # - name: Run helm script
+  #   command: sh /home/ubuntu/get_helm.sh
 
 - hosts: role_worker
   become: true
