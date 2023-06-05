@@ -118,8 +118,7 @@
       mode: 0700
 
   - name: Run helm script
-    remote_user: ubuntu
-    script: /home/ubuntu/get_helm.sh
+    command: sh /home/ubuntu/get_helm.sh
 
 - hosts: role_worker
   become: true
