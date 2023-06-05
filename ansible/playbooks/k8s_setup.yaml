@@ -80,13 +80,13 @@
     shell: |
       kubeadm init --pod-network-cidr=10.244.0.0/16 --ignore-preflight-errors=All
     
-  - name: Setup kubeconfig for ubuntu user
-    become: true
-    command: "{{ item }}"
-    with_items:
-     - mkdir -p /home/ubuntu/.kube
-     - cp -i /etc/kubernetes/admin.conf /home/ubuntu/.kube/config
-     - chown ubuntu:ubuntu /home/ubuntu/.kube/config
+  # - name: Setup kubeconfig for ubuntu user
+  #   become: true
+  #   command: "{{ item }}"
+  #   with_items:
+  #    - mkdir -p /home/ubuntu/.kube
+  #    - cp -i /etc/kubernetes/admin.conf /home/ubuntu/.kube/config
+  #    - chown ubuntu:ubuntu /home/ubuntu/.kube/config
 
   - name: Install flannel pod network
     remote_user: ubuntu
