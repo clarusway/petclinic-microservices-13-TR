@@ -104,12 +104,21 @@
       name: "kube_master"
       worker_join: "{{ join_command_for_workers.stdout.strip() }}"
 
-  - name: install Helm 
-    shell: |
-      cd /home/ubuntu
-      curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
-      chmod 777 get_helm.sh
-      ./get_helm.sh
+  # - name: install Helm 
+  #   shell: |
+  #     cd /home/ubuntu
+  #     curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+  #     chmod 777 get_helm.sh
+  #     ./get_helm.sh
+
+  - name: download helm
+    get_url:
+      url:  https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+      dest: /home/ubuntu/get_helm.sh
+      mode: 0777
+
+  - name: Run helm script
+    script: /home/ubuntu/get_helm.sh
 
 - hosts: role_worker
   become: true
@@ -118,3 +127,5 @@
   - name: Join workers to cluster
     shell: "{{ hostvars['kube_master']['worker_join'] }}"
     register: result_of_joining
+
+  - debug: var= result_of_joining.stdout
