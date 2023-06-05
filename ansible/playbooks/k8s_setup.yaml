@@ -111,15 +111,6 @@
       chmod 777 get_helm.sh
       ./get_helm.sh
 
-  # - name: download helm
-  #   get_url:
-  #     url:  https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-  #     dest: /home/ubuntu/get_helm.sh
-  #     mode: 0700
-
-  # - name: Run helm script
-  #   command: sh /home/ubuntu/get_helm.sh
-
 - hosts: role_worker
   become: true
   tasks:
