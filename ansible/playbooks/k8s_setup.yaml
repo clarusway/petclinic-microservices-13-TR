@@ -115,10 +115,10 @@
     get_url:
       url:  https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
       dest: /home/ubuntu/get_helm.sh
-      mode: 0777
+      mode: 0700
 
   - name: Run helm script
-    remote_src: true
+    remote_user: ubuntu
     script: /home/ubuntu/get_helm.sh
 
 - hosts: role_worker
